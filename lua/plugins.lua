@@ -37,4 +37,5 @@ require('packer').startup(function(use)
   -- git and history
   use 'mbbill/undotree'
   use 'tpope/vim-fugitive'
+  use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' } }
 end)
