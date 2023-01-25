@@ -1,6 +1,16 @@
 local builtin = require('telescope.builtin')
 
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[f]ind [f]files' })
+vim.keymap.set('n', '<leader>fn', function()
+    builtin.find_files({
+        search_dirs = { '/home/jgero/sync/notes' },
+    })
+end, { desc = '[f]ind in [n]otes' })
+vim.keymap.set('n', '<leader>fd', function()
+    builtin.find_files({
+        search_dirs = { '/home/jgero/.config/nvim' },
+    })
+end, { desc = '[f]ind in neovim [d]otfiles' })
 vim.keymap.set('n', '<leader>fg', builtin.git_files, { desc = '[f]ind [g]it files' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[f]ind [h]elp tags' })
 vim.keymap.set('n', '<leader>fw', builtin.live_grep, { desc = '[f]ind [w]ord (global)' })
