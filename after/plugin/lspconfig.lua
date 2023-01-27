@@ -7,11 +7,7 @@ local on_attach = function(client, bufnr)
     end
 
     if client.server_capabilities.documentFormattingProvider then
-        vim.api.nvim_create_autocmd('BufWritePre', {
-            callback = function()
-                vim.lsp.buf.format()
-            end,
-        })
+        nmap('<leader>ld', vim.lsp.buf.format, '[l]sp do [f]ormatting')
     end
 
     nmap('gd', vim.lsp.buf.definition, '[g]o to [d]efinition')
