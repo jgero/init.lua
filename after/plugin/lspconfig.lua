@@ -38,3 +38,7 @@ lspc.jdtls.setup({
     capabilities = capabilities,
     on_attach = on_attach,
 })
+lspc.gopls.setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+})
