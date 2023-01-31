@@ -34,10 +34,12 @@ require('packer').startup(function(use)
     use('l3mon4d3/luasnip')
     use('saadparwaiz1/cmp_luasnip')
     use('rafamadriz/friendly-snippets')
-    -- commenting
+    -- movement/text manipulation
     use('numToStr/Comment.nvim')
     use('JoosepAlviste/nvim-ts-context-commentstring')
-    -- navigation
+    use('tpope/vim-surround')
+    use('tpope/vim-repeat')
+    -- file navigation
     use({
         'nvim-telescope/telescope.nvim',
         branch = '0.1.x',
