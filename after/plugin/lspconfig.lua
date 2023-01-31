@@ -14,7 +14,7 @@ local on_attach = function(client, bufnr)
     nmap('<leader>rn', vim.lsp.buf.rename, '[r]e[n]ame')
 end
 local capabilities =
-require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+    require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 local lspc = require('lspconfig')
 lspc.sumneko_lua.setup({
     capabilities = capabilities,
