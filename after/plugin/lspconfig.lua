@@ -12,6 +12,7 @@ local on_attach = function(client, bufnr)
 
     nmap('gd', vim.lsp.buf.definition, '[g]o to [d]efinition')
     nmap('<leader>rn', vim.lsp.buf.rename, '[r]e[n]ame')
+    nmap('<leader>d', vim.lsp.buf.signature_help, 'show signature help [d]ocumentation')
 end
 local capabilities =
     require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
