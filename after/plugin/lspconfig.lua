@@ -7,12 +7,15 @@ local on_attach = function(client, bufnr)
     end
 
     if client.server_capabilities.documentFormattingProvider then
-        nmap('<leader>ld', vim.lsp.buf.format, '[l]sp do [f]ormatting')
+        nmap('<leader>lf', vim.lsp.buf.format, '[l]sp do [f]ormatting')
     end
 
     nmap('gd', vim.lsp.buf.definition, '[g]o to [d]efinition')
     nmap('<leader>rn', vim.lsp.buf.rename, '[r]e[n]ame')
     nmap('<leader>d', vim.lsp.buf.signature_help, 'show signature help [d]ocumentation')
+    nmap('<leader>df', vim.diagnostic.open_float, 'show [d]iagnostics [f]loat')
+    nmap('<leader>ca', vim.lsp.buf.code_action, '[c]ode [a]ctions')
+    nmap('H', vim.lsp.buf.hover, '[H]over')
 end
 local capabilities =
     require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
