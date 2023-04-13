@@ -14,7 +14,6 @@
   luasnip
   cmp_luasnip
   friendly-snippets
-  neodev-nvim
 
   comment-nvim
   nvim-ts-context-commentstring

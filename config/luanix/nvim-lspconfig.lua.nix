@@ -30,8 +30,6 @@ lspc.lua_ls.setup({
         Lua = {
             workspace = { checkThirdParty = false },
             telemetry = { enable = false },
-            -- enable neodev stuff
-            completion = { callSnippet = 'Replace' },
             -- disable unknown global 'vim' warning
             diagnostics = { globals = { 'vim' } },
         },
