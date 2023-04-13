@@ -1,5 +1,3 @@
-print('hello world')
-
 local builtin = require('telescope.builtin')
 
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = '[f]ind [f]files' })
