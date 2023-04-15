@@ -35,6 +35,11 @@ lspc.lua_ls.setup({
         },
     },
 })
+lspc.rnix.setup({
+    cmd = { '${pkgs.rnix-lsp}/bin/rnix-lsp' },
+    capabilities = capabilities,
+    on_attach = on_attach,
+})
 -- lspc.rust_analyzer.setup({
 --     capabilities = capabilities,
 --     on_attach = on_attach,
