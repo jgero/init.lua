@@ -40,20 +40,30 @@ lspc.rnix.setup({
     capabilities = capabilities,
     on_attach = on_attach,
 })
--- lspc.rust_analyzer.setup({
---     capabilities = capabilities,
---     on_attach = on_attach,
--- })
--- lspc.jdtls.setup({
---     capabilities = capabilities,
---     on_attach = on_attach,
--- })
--- lspc.gopls.setup({
---     capabilities = capabilities,
---     on_attach = on_attach,
--- })
--- lspc.kotlin_language_server.setup({
---     capabilities = capabilities,
---     on_attach = on_attach,
--- })
+lspc.bashls.setup({
+    cmd = { '${pkgs.nodePackages.bash-language-server}/bin/bash-language-server' },
+    capabilities = capabilities,
+    on_attach = on_attach,
+})
+lspc.html.setup({
+    cmd = {
+        '${pkgs.nodePackages.vscode-html-languageserver-bin}/bin/html-languageserver',
+        '--stdio' },
+    capabilities = capabilities,
+    on_attach = on_attach,
+})
+lspc.cssls.setup({
+    cmd = {
+        '${pkgs.nodePackages.vscode-css-languageserver-bin}/bin/css-languageserver',
+        '--stdio' },
+    capabilities = capabilities,
+    on_attach = on_attach,
+})
+lspc.tsserver.setup({
+    cmd = {
+        '${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server',
+        '--stdio' },
+    capabilities = capabilities,
+    on_attach = on_attach,
+})
 ''
