@@ -66,4 +66,9 @@ lspc.tsserver.setup({
     capabilities = capabilities,
     on_attach = on_attach,
 })
+lspc.rust_analyzer.setup({
+    cmd = { '${pkgs.rust-analyzer}/bin/rust-analyzer' },
+    capabilities = capabilities,
+    on_attach = on_attach,
+})
 ''
