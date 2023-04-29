@@ -8,8 +8,9 @@
       url = "github:neovim/neovim/stable?dir=contrib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    rust-overlay.url = "github:oxalica/rust-overlay";
   };
-  outputs = { self, nixpkgs, neovim }:
+  outputs = { self, nixpkgs, neovim, rust-overlay, ... }:
   let
     overlayFlakeInputs = prev: final: {
       neovim = neovim.packages.x86_64-linux.neovim;
@@ -23,7 +24,11 @@
 
     pkgs = import nixpkgs {
       system = "x86_64-linux";
-      overlays = [ overlayFlakeInputs overlayMyNeovim ];
+      overlays = [
+        (import rust-overlay)
+        overlayFlakeInputs
+        overlayMyNeovim
+      ];
     };
   in {
       packages.x86_64-linux.default = pkgs.myNeovim;
