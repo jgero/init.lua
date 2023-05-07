@@ -71,4 +71,11 @@ lspc.rust_analyzer.setup({
     capabilities = capabilities,
     on_attach = on_attach,
 })
+lspc.svelte.setup({
+    cmd = { 
+        '${pkgs.nodePackages.svelte-language-server}/bin/svelteserver',
+        '--stdio' },
+    capabilities = capabilities,
+    on_attach = on_attach,
+})
 ''
