@@ -35,8 +35,8 @@ lspc.lua_ls.setup({
         },
     },
 })
-lspc.rnix.setup({
-    cmd = { '${pkgs.rnix-lsp}/bin/rnix-lsp' },
+lspc.nil_ls.setup({
+    cmd = { '${pkgs.nil}/bin/nil' },
     capabilities = capabilities,
     on_attach = on_attach,
 })
