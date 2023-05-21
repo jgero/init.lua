@@ -36,5 +36,16 @@
         type = "app";
         program = "${pkgs.myNeovim}/bin/nvim";
       };
+      checks.x86_64-linux = {
+          stylua = pkgs.stdenv.mkDerivation {
+            buildInputs = with pkgs; [ stylua myNeovim ];
+            src = ./.;
+            name = "stylua";
+            buildPhase = ''
+            mkdir -p "$out"
+            stylua -c .
+            '';
+          };
+        };
     };
 }
