@@ -40,7 +40,7 @@
       };
       checks.x86_64-linux = {
         stylua = pkgs.stdenv.mkDerivation {
-          buildInputs = with pkgs; [ stylua myNeovim nixpkgs-fmt ];
+          buildInputs = with pkgs; [ stylua nixpkgs-fmt ];
           src = ./.;
           name = "stylua";
           buildPhase = ''
