@@ -3,11 +3,6 @@
 Complete neovim setup with langauge servers, git integration, file searching and
 navigation and keybinding cheat sheet.
 
-## TODO
-
-- add formatting to nix flake check
-- realize branch model and according github actions
-
 ## Use it
 
 > Cloned locally: `nvim = "nix run ~/projects/init.lua --";`

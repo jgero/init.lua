@@ -1,11 +1,13 @@
 { pkgs }:
 let
   nixFiles2ConfigFiles = dir:
-    builtins.map (file:
-      pkgs.writeTextFile {
-        name = pkgs.lib.strings.removeSuffix ".nix" file;
-        text = import ./${dir}/${file} { inherit pkgs; };
-      }) (builtins.attrNames (builtins.readDir ./${dir}));
+    builtins.map
+      (file:
+        pkgs.writeTextFile {
+          name = pkgs.lib.strings.removeSuffix ".nix" file;
+          text = import ./${dir}/${file} { inherit pkgs; };
+        })
+      (builtins.attrNames (builtins.readDir ./${dir}));
 
   scripts2ConfigFiles = dir:
     let
@@ -17,15 +19,19 @@ let
           cp ./* $out/
         '';
       };
-    in builtins.map (file: "${configDir}/${file}")
-    (builtins.attrNames (builtins.readDir configDir));
+    in
+    builtins.map (file: "${configDir}/${file}")
+      (builtins.attrNames (builtins.readDir configDir));
 
   sourceConfigFiles = files:
-    builtins.concatStringsSep "\n" (builtins.map (file:
-      "luafile" + " ${file}") files);
+    builtins.concatStringsSep "\n" (builtins.map
+      (file:
+        "luafile" + " ${file}")
+      files);
 
   lua = scripts2ConfigFiles "lua";
   luanix = nixFiles2ConfigFiles "luanix";
 
-in builtins.concatStringsSep "\n"
-(builtins.map (configs: sourceConfigFiles configs) [ lua luanix])
+in
+builtins.concatStringsSep "\n"
+  (builtins.map (configs: sourceConfigFiles configs) [ lua luanix ])

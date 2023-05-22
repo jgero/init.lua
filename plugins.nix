@@ -19,7 +19,7 @@
   nvim-ts-context-commentstring
   vim-surround
   vim-repeat
-  
+
   telescope-nvim
   telescope-fzf-native-nvim
 

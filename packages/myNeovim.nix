@@ -13,7 +13,8 @@ let
       packages.all.start = plugins;
     };
   };
-in pkgs.writeShellApplication {
+in
+pkgs.writeShellApplication {
   name = "nvim";
   runtimeInputs = [ neovimRuntimeDependencies ];
   text = ''
