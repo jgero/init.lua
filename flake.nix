@@ -8,9 +8,13 @@
       url = "github:neovim/neovim/stable?dir=contrib";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     rust-overlay.url = "github:oxalica/rust-overlay";
   };
-  outputs = { nixpkgs, neovim, rust-overlay, ... }:
+  outputs = { self, nixpkgs, neovim, treefmt-nix, rust-overlay, ... }:
     let
       overlayFlakeInputs = prev: final: {
         neovim = neovim.packages.x86_64-linux.neovim;
@@ -32,23 +36,17 @@
       };
     in
     {
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+      formatter.x86_64-linux = treefmt-nix.lib.mkWrapper
+        nixpkgs.legacyPackages.x86_64-linux
+        {
+          projectRootFile = "flake.nix";
+          programs.nixpkgs-fmt.enable = true;
+          programs.stylua.enable = true;
+        };
       packages.x86_64-linux.default = pkgs.myNeovim;
       apps.x86_64-linux.default = {
         type = "app";
         program = "${pkgs.myNeovim}/bin/nvim";
-      };
-      checks.x86_64-linux = {
-        stylua = pkgs.stdenv.mkDerivation {
-          buildInputs = with pkgs; [ stylua nixpkgs-fmt ];
-          src = ./.;
-          name = "stylua";
-          buildPhase = ''
-            mkdir -p "$out"
-            nixpkgs-fmt --check .
-            stylua -c .
-          '';
-        };
       };
     };
 }
