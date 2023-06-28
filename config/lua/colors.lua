@@ -1,3 +1,5 @@
-require('onedark').setup()
-require('onedark').load()
-require('transparent').setup()
+require("onedark").setup({
+	style = "darker",
+})
+require("onedark").load()
+require("transparent").setup()
