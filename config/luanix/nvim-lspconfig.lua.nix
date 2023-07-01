@@ -78,4 +78,9 @@
       capabilities = capabilities,
       on_attach = on_attach,
   })
+  lspc.kotlin_language_server.setup({
+      cmd = { '${pkgs.kotlin-language-server}/bin/kotlin-language-server' },
+      capabilities = capabilities,
+      on_attach = on_attach,
+  })
 ''
