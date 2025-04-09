@@ -53,7 +53,7 @@
       {
         formatter = treefmtEval.config.build.wrapper;
         checks.formatter = treefmtEval.config.build.check self;
-        packages.default = myNeovim;
+        packages.default = myNeovimWrapper;
         apps.default = {
           type = "app";
           program = "${myNeovimWrapper}/bin/my-nvim";

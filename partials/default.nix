@@ -29,7 +29,7 @@ in
   }
   {
     name = "undo";
-    packages = [ plugins.undotree ];
+    plugins = [ plugins.undotree ];
     config = ''vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = "toggle [u]ndo tree" })'';
   }
   (import ./tabset.nix { inherit pkgs; })
