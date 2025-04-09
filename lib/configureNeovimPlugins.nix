@@ -12,12 +12,14 @@ let
     )
     (map addDefaultOrder plugins);
 
-  runtimeDeps = builtins.concatLists (map (p: p.packages or [ ]) sortedPlugins);
+  runtimeDeps = builtins.concatLists (map (p: p.dependencies or [ ]) sortedPlugins);
 
   runtimePath = pkgs.symlinkJoin {
     name = "nvim-plugins-runtime";
     paths = runtimeDeps;
   };
+
+  neovimPlugins = builtins.concatLists (map (p: p.plugins or [ ]) sortedPlugins);
 
   configDir = pkgs.runCommand "nvim-plugin-configs" { } (
     let
@@ -36,5 +38,5 @@ let
 
 in
 {
-  inherit runtimePath configDir requireLines;
+  inherit neovimPlugins runtimePath configDir requireLines;
 }

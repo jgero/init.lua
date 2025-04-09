@@ -1,6 +1,6 @@
 { pkgs }: {
   name = "tabset";
-  packages = [
+  plugins = [
     (pkgs.vimUtils.buildVimPlugin {
       name = "tabset-nvim";
       src = pkgs.fetchFromGitHub {

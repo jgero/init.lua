@@ -8,7 +8,7 @@ in
   (import ./builtins { inherit readAll pkgs; })
   {
     name = "essentials";
-    packages = with plugins; [ comment-nvim vim-surround vim-repeat ];
+    plugins = with plugins; [ comment-nvim vim-surround vim-repeat ];
     config = ''require("Comment").setup({})'';
   }
   (import ./languages { inherit readAll pkgs; })
@@ -16,7 +16,7 @@ in
   (import ./navigation { inherit readAll pkgs; })
   {
     name = "theme";
-    packages = [ plugins.onedark-nvim plugins.transparent-nvim ];
+    plugins = [ plugins.onedark-nvim plugins.transparent-nvim ];
     config = ''
       require("onedark").setup({
         style = "darker",

@@ -1,15 +1,9 @@
 { pkgs, readAll }: {
   name = "languages";
-  # order =1;
-  packages = with pkgs.vimPlugins; [
-    # pkgs.tree-sitter
-    # (nvim-treesitter.withPlugins (p: with p; [ nix lua go json ]))
+
+  dependencies = with pkgs; [ llm-ls ];
+  plugins = with pkgs.vimPlugins; [
     nvim-treesitter.withAllGrammars
-    # nvim-treesitter
-    # nvim-treesitter.builtGrammars
-    # nvim-treesitter
-    # cmp-treesitter
-    # pkgs.gcc
 
     nvim-lspconfig
     nvim-cmp
@@ -23,9 +17,6 @@
     lsp_lines-nvim
 
     llm-nvim
-    pkgs.llm-ls
   ];
-  config = readAll [ ./cmp.lua ./lsp-lines.lua ] + (import ./llm.lua.nix pkgs) + (import ./nvim-lspconfig.lua.nix pkgs) 
-  + (import ./treesitter.lua.nix pkgs)
-  ;
+  config = readAll [ ./cmp.lua ./lsp-lines.lua ./treesitter.lua ] + (import ./llm.lua.nix pkgs) + (import ./nvim-lspconfig.lua.nix pkgs);
 }

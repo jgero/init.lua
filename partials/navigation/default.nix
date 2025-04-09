@@ -1,9 +1,7 @@
 { pkgs, readAll }: {
   name = "navigation";
-  packages = with pkgs.vimPlugins; [
-    pkgs.ripgrep
-    pkgs.fzf
-    pkgs.fd
+  dependencies = with pkgs; [ ripgrep fzf fd ];
+  plugins = with pkgs.vimPlugins; [
     oil-nvim
     plenary-nvim
     telescope-nvim

@@ -1,6 +1,6 @@
 { pkgs, readAll }: {
   name = "git";
-  packages = with pkgs.vimPlugins; [
+  plugins = with pkgs.vimPlugins; [
     vim-fugitive
     gitsigns-nvim
   ];

@@ -1,4 +1,3 @@
-{pkgs, ...}: ''
 require("nvim-treesitter.configs").setup({
 	highlight = {
 		enable = true,
@@ -9,7 +8,6 @@ require("nvim-treesitter.configs").setup({
 	},
 	ensure_installed = {},
 	auto_install = false,
-  #parser_install_dir = "${pkgs.vimPlugins.nvim-treesitter.withAllGrammars}/parser",
 	-- context commetstring setup
 	-- source: https://github.com/JoosepAlviste/nvim-ts-context-commentstring#commentnvim
 	context_commentstring = {
@@ -17,4 +15,3 @@ require("nvim-treesitter.configs").setup({
 		enable_autocmd = false,
 	},
 })
-''

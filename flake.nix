@@ -37,19 +37,26 @@
           '';
         };
 
-        myNeovim = pkgs.writeShellScriptBin "my-nvim" ''
+        myNeovim = pkgs.neovim.override {
+          configure = {
+            customRC = "luafile ${myNvimConfig}/config/nvim/init.lua";
+            packages.myNeovimPackage = {
+              start = [ pluginSetup.neovimPlugins ];
+            };
+          };
+        };
+        myNeovimWrapper = pkgs.writeShellScriptBin "my-nvim" ''
           export XDG_CONFIG_HOME=${myNvimConfig}/config
-          exec ${( pkgs.neovim-unwrapped.override {tree-sitter = {}; } )}/bin/nvim --cmd "set runtimepath^=${pluginSetup.runtimePath}" "$@"
+          exec ${myNeovim}/bin/nvim --cmd "set runtimepath^=${pluginSetup.runtimePath}" "$@"
         '';
       in
       {
         formatter = treefmtEval.config.build.wrapper;
         checks.formatter = treefmtEval.config.build.check self;
         packages.default = myNeovim;
-        packages.ts = pkgs.vimPlugins.nvim-treesitter.withPlugins(p: [p.go p.tree-sitter-go p.golang]);
         apps.default = {
           type = "app";
-          program = "${myNeovim}/bin/my-nvim";
+          program = "${myNeovimWrapper}/bin/my-nvim";
         };
       });
 }
