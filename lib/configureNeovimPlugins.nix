@@ -21,22 +21,15 @@ let
 
   neovimPlugins = builtins.concatLists (map (p: p.plugins or [ ]) sortedPlugins);
 
-  configDir = pkgs.runCommand "nvim-plugin-configs" { } (
-    let
-      writeOne = p: ''
-                mkdir -p $out/lua/${moduleName}
-                cat > $out/lua/${moduleName}/${p.name}.lua << 'EOF'
-        ${p.config or ""}
-        EOF'';
-    in
-    builtins.concatStringsSep "\n" (map writeOne sortedPlugins)
-  );
-
-  requireLines = builtins.concatStringsSep "\n" (
-    map (p: ''require("${moduleName}.${p.name}")'') sortedPlugins
-  );
+  init-lua = pkgs.writeText "init.lua" (builtins.concatStringsSep "\n" (
+    map
+      (p: ''-- ${p.name}
+${p.config or ""}
+'')
+      sortedPlugins
+  ));
 
 in
 {
-  inherit neovimPlugins runtimePath configDir requireLines;
+  inherit neovimPlugins runtimePath init-lua;
 }
