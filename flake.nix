@@ -23,40 +23,36 @@
 
         pluginSetup = configurePlugins pluginDefs moduleName;
 
-        initLua = pkgs.writeText "init.lua" pluginSetup.requireLines;
-        myNvimConfig = pkgs.stdenv.mkDerivation {
-          name = "nvim-config";
-          src = null;
-          phases = [ "installPhase" ];
-          installPhase = ''
-            mkdir -p $out/config/nvim/lua/${moduleName}
-            cp ${initLua} $out/config/nvim/init.lua
-            cp -r ${pluginSetup.configDir}/lua/${moduleName}/* $out/config/nvim/lua/${moduleName}/
-            #ls -la ${pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [ p.c p.java ])}/parser
-            #exit 1
-          '';
-        };
-
-        myNeovim = pkgs.neovim.override {
-          configure = {
-            customRC = "luafile ${myNvimConfig}/config/nvim/init.lua";
-            packages.myNeovimPackage = {
-              start = [ pluginSetup.neovimPlugins ];
+        myNeovim =
+          let
+            configuredNeovim = pkgs.neovim.override {
+              configure = {
+                packages.myNeovimPackage = {
+                  start = [ pluginSetup.neovimPlugins ];
+                };
+              };
             };
+          in
+          pkgs.symlinkJoin {
+            name = "my-neovim";
+            paths = [ configuredNeovim ];
+            nativeBuildInputs = [ pkgs.makeWrapper ];
+            postBuild = ''
+              wrapProgram $out/bin/nvim \
+                --add-flags '-u' \
+                --add-flags '${pluginSetup.init-lua}' \
+                --add-flags '--cmd' \
+                --add-flags "'set runtimepath^=${pluginSetup.runtimePath}'"
+            '';
           };
-        };
-        myNeovimWrapper = pkgs.writeShellScriptBin "my-nvim" ''
-          export XDG_CONFIG_HOME=${myNvimConfig}/config
-          exec ${myNeovim}/bin/nvim --cmd "set runtimepath^=${pluginSetup.runtimePath}" "$@"
-        '';
       in
       {
         formatter = treefmtEval.config.build.wrapper;
         checks.formatter = treefmtEval.config.build.check self;
-        packages.default = myNeovimWrapper;
+        packages.default = myNeovim;
         apps.default = {
           type = "app";
-          program = "${myNeovimWrapper}/bin/my-nvim";
+          program = "${myNeovim}/bin/nvim";
         };
       });
 }

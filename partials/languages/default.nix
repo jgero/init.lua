@@ -1,7 +1,7 @@
 { pkgs, readAll }: {
   name = "languages";
 
-  dependencies = with pkgs; [ llm-ls ];
+  # dependencies = with pkgs; [ llm-ls ];
   plugins = with pkgs.vimPlugins; [
     nvim-treesitter.withAllGrammars
 
